@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .utils import get_release_info, get_members, get_repo_info, get_contributors, get_repo_summary
 from datetime import date, datetime, timedelta
-import pytz
+import pytz, os
 from .models import project, release, repo_list, team, repo_detail, contrib
 
 # Time Zone localization to UTC
@@ -10,8 +10,8 @@ utc=pytz.UTC
 # API call variables
 verify_ssl = True
 
-with open("git_lurker\etc\git_auth_token.txt") as f:
-    AUTH_TOKEN = f.read().strip()
+# Auth token env variable
+AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 
 headers = {
             "Accept": "application/vnd.github.v3+json",
