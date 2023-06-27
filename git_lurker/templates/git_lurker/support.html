@@ -1,0 +1,15 @@
+{% extends "git_lurker/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<img src="{% static 'git_lurker_lnurl.png' %}" alt="LNURL" style="width: 400px; height: 400px"  class="rounded mx-auto d-block pt-2">
+
+<p class="text-center p-2 fs-5 fw-light text-info">Donate magic internet money via the lightning network, with help from LNbits.</p>
+
+<div>
+    <a href="https://b-musketeers.com/" target="_blank"><img class="img-thumbnail rounded mx-auto d-block" style="width: 50px; height: 50px" src="{% static 'logo_alt.png' %}" alt="B-Musketeers"></a>
+    <p class="text-center p-2 fs-8 fw-light ">Created by the ₿-Musketeers</p>
+</div>
+
+{% endblock content %}

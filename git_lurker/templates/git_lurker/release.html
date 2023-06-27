@@ -1,0 +1,28 @@
+{% extends "git_lurker/base.html" %}
+{% block content %}
+    <div class="container">
+        <h1 class="fs-4 fw-semibold pt-2">Latest Release</h1>
+
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-dark"><b>Repository:</b> {{ owner }}/{{ repo }}</a></li>
+            <li class="list-group-item list-group-item-dark"><b>Published on: </b>{{ release.latest_release }}</li>
+            <li class="list-group-item list-group-item-dark"><b>Version Tag: </b>{{ release.version }}</li>
+            <li class="list-group-item list-group-item-dark"><b>By: </b>{{ release.publisher }}</li>
+            <li class="list-group-item list-group-item-dark"><b>On GitHub: </b><a href="{{ release_url }}" target="_blank">{{ owner }}/{{ repo }}/releases</a></li>
+        </ul>
+
+        <div class="accordion accordion-flush" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header fw-medium">
+                    <button class="accordion-button collapsed text-info bg-dark p-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        View Release Notes
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body"><pre>{{ release.notes | safe }}</pre></div>
+                </div>
+            </div>    
+        </div>
+        <p class="text-info text-end">{{ latest_pull }}</p>
+    </div>
+{% endblock content %}

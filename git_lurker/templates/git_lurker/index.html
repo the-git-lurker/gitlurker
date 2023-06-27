@@ -1,0 +1,73 @@
+{% extends "git_lurker/base.html" %}
+
+{% block content %}
+
+
+    <div class="accordion accordion-flush" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header fw-medium">
+                <button class="accordion-button collapsed text-info bg-dark p-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                    About the Lurker
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse text-bg-dark p-3" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p>
+                        This site tracks and summarizes a bunch of GitHub projects I am interested in.
+                        It is designed for quick reference purposes, therefore any projects info is limited. 
+                        Sometimes, a quick summary is all the info you need.
+                    </p>
+                
+                    <p> 
+                        Don't be alarmed if some pages take time to load. If the data are older than 18 hours the application will fetch new data from the GitHub API.
+                        Otherwise, if the data are more recent it will be pulled from the back-end database.
+                    </p>
+                
+                    <p> 
+                        Any <a href="{% url 'support' %}">support sats</a> you would liked to give are welcome. These will be used to cover site fees, or buy beer (most likely the latter).
+                    </p>
+
+                    <p>
+                        If you would like to request any features or the addition of any specific projects please feel free to drop an email to: <b>gitlurker@proton.me</b>
+                    </p>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+    <div class="container">
+        <h1 class="fs-4 fw-semibold pt-2">Project info</h2>
+        
+        <p>Data are sorted by the latest release. Highlighted items indicate releases within the last 7 days.</p>
+    
+        <table class="table table-dark table-striped table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Owner</th>
+                    <th scope="col">Repository</th>
+                    <th scope="col">Version</th>
+                    <th scope="col">Release Date</th>
+                    <th scope="col">Publisher</th>
+                </tr>
+            </thead>
+            {% for project in projects %}
+            <tbody>
+                <tr>
+                    <td><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
+                    <td><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                    <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.version }}</a></td>
+                    {% if project.recent == "Y" %}
+                        <td class="table-warning"><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.latest_release }}</a></td>
+                    {% else %}
+                        <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.latest_release }}</a></td>
+                    {% endif %}
+                    <td>{{ project.publisher }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}   
+        </table>
+        <p class="text-info text-end">{{ latest_pull }}</p>
+    </div>
+{% endblock content %}
+
+

@@ -1,0 +1,64 @@
+{% extends "git_lurker/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <ul class="list-group pt-2">
+            <li class="list-group-item list-group-item-dark"><b>On GitHub: </b><a href="{{ owner_url }}"  target="_blank">{{ owner }}</a></li>
+        </ul>
+        
+        <h1 class="fs-4 fw-semibold pt-2">Repositories</h1>
+
+        {% if repos == "NONE REPORTED" %}
+            <p class="fst-italic pb-2">No repository data reported.</p>
+        {% else %}
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Last Updated</th>
+                    </tr>
+                </thead>
+                {% for repo in repos %}
+                <tbody>
+                    <tr>
+                        <td><a href="{{ repo.github_url }}" target="_blank">{{ repo.name }}</a></td>
+                        {% if repo.description == "NONE REPORTED" or repo.description == "NOT REPORTED" %}
+                            <td><i>No description provided for this repository.</i></td>
+                        {% else %}
+                            <td>{{ repo.description }}</td>
+                        {% endif %}
+                        <td>{{ repo.last_updated }}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}        
+            </table>
+        {% endif %}  
+
+        <h1 class="fs-4 fw-semibold pt-2">Team</h1>
+
+        {% if team_members == "NONE REPORTED" %}
+            <p class="fst-italic pb-2">No team data reported.</p>
+        {% else %}
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col">Handle</th>
+                        <th scope="col">Name</th>
+                    </tr>
+                </thead>
+                {% for member in team_members %}
+                <tbody>
+                    <tr>
+                        <td><a href="{{ member.github }}" target="_blank"><img src="{{ member.avatar }}" class="rounded mx-auto d-block" alt="avatar" style="width: 50px; height: 50px"></a></td>
+                        <td>{{ member.handle }}</td>
+                        <td>{{ member.name }}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        {% endif %}
+        <p class="text-info text-end">{{ latest_pull }}</p> 
+    </div>
+{% endblock content %}
