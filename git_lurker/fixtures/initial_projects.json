@@ -198,5 +198,53 @@
       "repository": "nunchuk-desktop",
       "owner": "nunchuk-io"
     }
+  },
+  {
+    "model": "git_lurker.project",
+    "pk": 26,
+    "fields": {
+      "repository": "lightning-browser-extension",
+      "owner": "getAlby"
+    }
+  },
+  {
+    "model": "git_lurker.project",
+    "pk": 27,
+    "fields": {
+      "repository": "lightning-terminal",
+      "owner": "lightninglabs"
+    }
+  },
+  {
+    "model": "git_lurker.project",
+    "pk": 28,
+    "fields": {
+      "repository": "thunderhub",
+      "owner": "apotdevin"
+    }
+  },
+  {
+    "model": "git_lurker.project",
+    "pk": 29,
+    "fields": {
+      "repository": "lndg",
+      "owner": "cryptosharks131"
+    }
+  },
+  {
+    "model": "git_lurker.project",
+    "pk": 30,
+    "fields": {
+      "repository": "mutiny-node",
+      "owner": "MutinyWallet"
+    }
+  },
+  {
+    "model": "git_lurker.project",
+    "pk": 26,
+    "fields": {
+      "repository": "nostr-wallet-connect",
+      "owner": "getAlby"
+    }
   }
 ]
