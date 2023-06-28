@@ -241,7 +241,7 @@
   },
   {
     "model": "git_lurker.project",
-    "pk": 26,
+    "pk": 31,
     "fields": {
       "repository": "nostr-wallet-connect",
       "owner": "getAlby"
