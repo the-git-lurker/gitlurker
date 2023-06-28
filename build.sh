@@ -8,4 +8,4 @@ python manage.py collectstatic --no-input
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser --noinput
-# python manage.py dumpdata
+python manage.py dumpdata git_luker.project --indent 2 > initial_projects.json
