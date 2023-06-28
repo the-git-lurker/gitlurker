@@ -140,8 +140,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Specify the directory containing your fixture file(s)
-FIXTURE_DIRS = [
-    os.path.join(BASE_DIR, 'git_lurker', 'fixtures'),
-]
