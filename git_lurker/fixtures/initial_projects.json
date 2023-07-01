@@ -246,5 +246,21 @@
       "repository": "nostr-wallet-connect",
       "owner": "getAlby"
     }
+  },
+  {
+    "model": "git_lurker.project",
+    "pk": 32,
+    "fields": {
+      "repository": "eNuts",
+      "owner": "cashubtc"
+    }
+  },
+  {
+    "model": "git_lurker.project",
+    "pk": 33,
+    "fields": {
+      "repository": "cashu",
+      "owner": "cashubtc"
+    }
   }
 ]
