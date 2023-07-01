@@ -7,7 +7,7 @@ class project(models.Model):
     owner = models.CharField(max_length=100, default='')
     
     def __str__(self):
-        return self.repository
+        return self.repository, self.owner
 
 # Model for the release basic info
 class release(models.Model):
@@ -20,7 +20,7 @@ class release(models.Model):
     notes = models.TextField(default='')
 
     def __int__(self):
-        return self.repository
+        return self.repository, self.version
 
 # Model for the repo basic info
 class repo_list(models.Model):
@@ -31,10 +31,10 @@ class repo_list(models.Model):
     github_url = models.URLField(max_length=200, default='')
     name = models.CharField(max_length=200, default='')
     description = models.TextField(max_length=350, default='')
-    last_updated = models.CharField(max_length=50, default='')
+    last_updated = models.CharField(max_length=20, default='')
 
     def __int__(self):
-        return self.owner      
+        return self.owner, self.name
     
 # Model for the contributors basic info
 class team(models.Model):
@@ -44,11 +44,11 @@ class team(models.Model):
     avatar_url = models.URLField(max_length=200, default='')
     github_url = models.URLField(max_length=200, default='')
     user_id = models.IntegerField()
-    handle = models.CharField(max_length=200, default='')
-    name = models.CharField(max_length=200, default='')
+    handle = models.CharField(max_length=100, default='')
+    name = models.CharField(max_length=50, default='')
 
     def __int__(self):
-        return self.owner
+        return self.owner, self.handle
     
 # Model for the repo basic info
 class repo_detail(models.Model):
@@ -63,7 +63,7 @@ class repo_detail(models.Model):
     open_issues = models.IntegerField()
 
     def __int__(self):
-        return self.repository
+        return self.repository, self.name
 
 # Model for the contributors basic info
 class contrib(models.Model):
@@ -78,4 +78,4 @@ class contrib(models.Model):
     contributions = models.IntegerField()
 
     def __int__(self):
-        return self.repository
+        return self.repository, self.handle
