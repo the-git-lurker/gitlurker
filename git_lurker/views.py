@@ -131,10 +131,10 @@ def project_view(request, owner):
         else:
             members_unsorted = []
             for member in teams_data.values():
-                handle = member["handle"]
-                github_url = member["github_url"]
-                avatar_url = member["avatar_url"]
-                name = member["name"]
+                handle = member["handle"][:200]
+                github_url = member["github_url"][:200]
+                avatar_url = member["avatar_url"][:200]
+                name = member["name"][:200]
                 members_unsorted.append({"handle":handle, "name":name, "github":github_url, "avatar":avatar_url})
             members = sorted(members_unsorted, key=lambda x: x['handle'].lower())
         

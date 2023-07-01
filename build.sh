@@ -9,4 +9,4 @@ python manage.py makemigrations git_lurker --empty
 python manage.py makemigrations git_lurker
 python manage.py migrate git_lurker
 python manage.py loaddata initial_projects.json
-python manage.py createsuperuser --noinput
+# python manage.py createsuperuser --noinput
