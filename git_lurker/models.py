@@ -14,7 +14,7 @@ class release(models.Model):
     """Basic release level model"""
     repository = models.ForeignKey(project, on_delete=models.CASCADE)
     date_updated = models.DateTimeField(auto_now=True)
-    latest_release = models.CharField(max_length=20, default='')
+    latest_release = models.CharField(max_length=50, default='')
     publisher = models.CharField(max_length=200, default='')
     version = models.CharField(max_length=200, default='')
     notes = models.TextField(default='')
@@ -31,7 +31,7 @@ class repo_list(models.Model):
     github_url = models.URLField(max_length=200, default='')
     name = models.CharField(max_length=200, default='')
     description = models.TextField(max_length=350, default='')
-    last_updated = models.CharField(max_length=20, default='')
+    last_updated = models.CharField(max_length=50, default='')
 
     def __int__(self):
         return self.owner      
@@ -45,7 +45,7 @@ class team(models.Model):
     github_url = models.URLField(max_length=200, default='')
     user_id = models.IntegerField()
     handle = models.CharField(max_length=100, default='')
-    name = models.CharField(max_length=20, default='')
+    name = models.CharField(max_length=50, default='')
 
     def __int__(self):
         return self.owner
