@@ -7,7 +7,7 @@ class project(models.Model):
     owner = models.CharField(max_length=100, default='')
     
     def __str__(self):
-        return self.repository, self.owner
+        return self.repository
 
 # Model for the release basic info
 class release(models.Model):
