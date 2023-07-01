@@ -111,7 +111,8 @@ def project_view(request, owner):
         # Repository List: Check if the release data in the DB is recent. If not update via the GitHub APIs.
         if not repos_data or repos_data.values().first()["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=18):
             endpoint1 = f"https://api.github.com/orgs/{owner}/repos"
-            repos = get_repo_info(endpoint1, verify_ssl, headers, proj_owner)
+            endpoint1_usr = f"https://api.github.com/users/{owner}/repos"
+            repos = get_repo_info(endpoint1, endpoint1_usr, verify_ssl, headers, proj_owner)
         else:
             repos_unsorted = []
             for repo in repos_data.values():
