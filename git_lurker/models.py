@@ -45,7 +45,7 @@ class team(models.Model):
     github_url = models.URLField(max_length=200, default='')
     user_id = models.IntegerField()
     handle = models.CharField(max_length=100, default='')
-    name = models.CharField(max_length=50, default='')
+    name = models.CharField(max_length=100, default='')
 
     def __int__(self):
         return self.owner
