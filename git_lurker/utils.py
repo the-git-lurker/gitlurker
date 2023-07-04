@@ -134,7 +134,7 @@ def get_members(endpoint, ssl, head, proj_owner):
             # Uses the GitHub ID varaible to check if we already have a record.
             # If we don't we create a DB record, if we do we update the record
             # date_updated force changed to as the DB record is updated.
-            team_obj = team.objects.filter(user_id=user_id)
+            team_obj = team.objects.filter(owner=proj_owner[0], user_id=user_id)
             if not team_obj:
                 team.objects.create(owner=proj_owner[0], user_id=user_id, github_url=github_url, avatar_url=avatar_url, name=name, handle=handle)
             else:
@@ -227,7 +227,7 @@ def get_contributors(endpoint, ssl, head, rep_id):
             # Uses the GitHub ID varaible to check if we already have a record.
             # If we don't we create a DB record, if we do we update the record
             # date_updated force changed to as the DB record is updated.
-            contrib_obj = contrib.objects.filter(user_id=user_id)
+            contrib_obj = contrib.objects.filter(repository=rep_id, user_id=user_id)
             if not contrib_obj:
                 contrib.objects.create(repository=rep_id, user_id=user_id, github_url=github_url, avatar_url=avatar_url, name=name, handle=handle, contributions=contributions)
             else:
