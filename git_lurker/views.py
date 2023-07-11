@@ -19,9 +19,8 @@ headers = {
         }
 
 # Handle any pages that are unexpected
-def handle_unrecognized_url(request, unrecognized_url):
-    # Redirect to a specific page or display a custom error message
-    return redirect('index')  # Example: Redirect to the home page
+def page_not_found_view(request, exception):
+    return render(request, 'Three_Sentences_or_Less/404.html', status=404)
 
 # Home view
 def index(request):

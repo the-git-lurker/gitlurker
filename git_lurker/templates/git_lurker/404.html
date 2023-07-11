@@ -1,0 +1,13 @@
+{% extends "Three_Sentences_or_Less/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="d-grid gap-2">
+    <img src="{% static '404.png' %}" alt="404" style="width: 600px; height: 400px"  class="rounded mx-auto d-block pt-2">
+    <p class="text-center fw-lighter fs-5">Looks like this didn't lead where you expected... [404]</p>
+    <a href="{% url 'index' %}">
+    <button class="btn btn-outline-info" type="button"><a href="{% url 'index' %}">Return To Safety</a></button>
+</div>
+
+{% endblock content %}

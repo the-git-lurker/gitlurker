@@ -30,8 +30,15 @@ def get_release_info(endpoint, ssl, head, repo):
             if notes == "":
                 notes = '<p> No Release Notes Provided. </p>'
             release_data = {"version":version, "publisher":publisher, "latest_release":latest_release, "notes":notes}
+            # Uses the proj ID to check if we already have a record.
+            # If we don't we create a DB record, if we do we update the record
+            # date_updated force changed to as the DB record is updated.
             proj = project.objects.filter(repository=repo)
-            release.objects.update_or_create(repository=proj[0], latest_release=latest_release, publisher=publisher, version=version, notes=notes)
+            release_obj =  release.objects.filter(repository=proj[0])
+            if not release_obj:
+                release.objects.create(repository=proj[0], latest_release=latest_release, publisher=publisher, version=version, notes=notes)
+            else:
+                release_obj.update(date_updated=utc.localize(datetime.now()) , latest_release=latest_release, publisher=publisher, version=version, notes=notes)
             return release_data
     return None
 
@@ -69,7 +76,7 @@ def get_repo_info(endpoint, endpoint_usr, ssl, head, proj_owner):
             git_id = repo["id"]
             repos.append({"name":name, "description":description, "github_url":github_url, "last_updated":last_updated, "git_id":git_id})
 
-            # Uses the GitHub ID varaible to check if we already have a record.
+            # Uses the GitHub ID variable to check if we already have a record.
             # This is useful in case the repo changed name as it keeps the ID
             # If we don't we create a DB record, if we do we update the record
             # date_updated force changed to as the DB record is updated.
@@ -77,7 +84,7 @@ def get_repo_info(endpoint, endpoint_usr, ssl, head, proj_owner):
             if not repo_list_obj:
                 repo_list.objects.create(owner=proj_owner[0], git_id=git_id, github_url=github_url, name=name, description=description, last_updated=last_updated)
             else:
-                repo_list.objects.filter(git_id=git_id).update(date_updated=utc.localize(datetime.now()) , github_url=github_url, name=name, description=description, last_updated=last_updated)
+                repo_list_obj.update(date_updated=utc.localize(datetime.now()) , github_url=github_url, name=name, description=description, last_updated=last_updated)
             # Create a list of GitHub IDs so that we can compare the current list against the DB list.
             update_list.append(git_id)
 
@@ -131,14 +138,15 @@ def get_members(endpoint, ssl, head, proj_owner):
                 name = "None"
             members.append({"handle":handle, "name":name, "github":github_url, "avatar":avatar_url})
 
-            # Uses the GitHub ID varaible to check if we already have a record.
+            # Uses the GitHub ID variable to check if we already have a record.
             # If we don't we create a DB record, if we do we update the record
             # date_updated force changed to as the DB record is updated.
             team_obj = team.objects.filter(owner=proj_owner[0], user_id=user_id)
             if not team_obj:
+                print(f"Input Values: \n\t-Owner-{proj_owner[0]} \n\t-UserID-{user_id} \n\t-GitURL-{github_url} \n\t-AvaURL-{avatar_url} \n\t-Name-{name} \n\t-Handle-{handle}")
                 team.objects.create(owner=proj_owner[0], user_id=user_id, github_url=github_url, avatar_url=avatar_url, name=name, handle=handle)
             else:
-                team.objects.filter(user_id=user_id).update(date_updated=utc.localize(datetime.now()) , github_url=github_url, avatar_url=avatar_url, name=name, handle=handle)
+                team_obj.update(date_updated=utc.localize(datetime.now()) , github_url=github_url, avatar_url=avatar_url, name=name, handle=handle)
 
             update_list.append(user_id)
         
@@ -182,7 +190,14 @@ def get_repo_summary(endpoint, ssl, head, rep_id):
         forks = info["forks"]
         open_issues = info["open_issues"]
         summary = {"name":name, "repo_url":repo_url, "description":description, "followers":followers, "forks":forks, "open_issues":open_issues}
-        repo_detail.objects.update_or_create(repository=rep_id, name=name, description=description, repo_url=repo_url, followers=followers, forks=forks, open_issues=open_issues)
+        # Uses the repository to check if we already have a record.
+        # If we don't we create a DB record, if we do we update the record
+        # date_updated force changed to as the DB record is updated.
+        repo_obj = repo_detail.objects.filter(repository=rep_id)
+        if not repo_obj:
+            repo_detail.objects.create(repository=rep_id, name=name, description=description, repo_url=repo_url, followers=followers, forks=forks, open_issues=open_issues)
+        else:
+            repo_obj.update(date_updated=utc.localize(datetime.now()) ,repository=rep_id, name=name, description=description, repo_url=repo_url, followers=followers, forks=forks, open_issues=open_issues)
         return summary
     return None
 
@@ -224,14 +239,14 @@ def get_contributors(endpoint, ssl, head, rep_id):
                 name = "None"
             contributors.append({"user_id":user_id, "handle":handle, "name":name, "github_url":github_url, "avatar_url":avatar_url, "contributions":contributions})
 
-            # Uses the GitHub ID varaible to check if we already have a record.
+            # Uses the GitHub ID variable to check if we already have a record.
             # If we don't we create a DB record, if we do we update the record
             # date_updated force changed to as the DB record is updated.
             contrib_obj = contrib.objects.filter(repository=rep_id, user_id=user_id)
             if not contrib_obj:
                 contrib.objects.create(repository=rep_id, user_id=user_id, github_url=github_url, avatar_url=avatar_url, name=name, handle=handle, contributions=contributions)
             else:
-                contrib.objects.filter(user_id=user_id).update(date_updated=utc.localize(datetime.now()) , github_url=github_url, avatar_url=avatar_url, name=name, handle=handle, contributions=contributions)
+                contrib_obj.update(date_updated=utc.localize(datetime.now()) , github_url=github_url, avatar_url=avatar_url, name=name, handle=handle, contributions=contributions)
             
             update_list.append(user_id)
 

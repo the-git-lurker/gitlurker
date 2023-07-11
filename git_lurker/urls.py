@@ -32,6 +32,6 @@ urlpatterns = [
     path("<slug:owner>/<slug:repo>/repo", views.repository_view, name="repository"),
     # Support Page
     path("support/", views.support_view, name="support"),
-    # Catch-all URL pattern
-    path('<path:unrecognized_url>/', views.handle_unrecognized_url),
 ]
+
+handler404 = "Three_Sentences_or_Less.views.page_not_found_view"
