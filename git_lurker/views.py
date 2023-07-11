@@ -20,7 +20,7 @@ headers = {
 
 # Handle any pages that are unexpected
 def page_not_found_view(request, exception):
-    return render(request, 'Three_Sentences_or_Less/404.html', status=404)
+    return render(request, 'git_lurker/404.html', status=404)
 
 # Home view
 def index(request):
