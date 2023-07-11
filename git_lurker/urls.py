@@ -34,4 +34,4 @@ urlpatterns = [
     path("support/", views.support_view, name="support"),
 ]
 
-handler404 = "Three_Sentences_or_Less.views.page_not_found_view"
+handler404 = "git_lurker.views.page_not_found_view"
