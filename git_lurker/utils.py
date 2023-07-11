@@ -143,7 +143,6 @@ def get_members(endpoint, ssl, head, proj_owner):
             # date_updated force changed to as the DB record is updated.
             team_obj = team.objects.filter(owner=proj_owner[0], user_id=user_id)
             if not team_obj:
-                print(f"Input Values: \n\t-Owner-{proj_owner[0]} \n\t-UserID-{user_id} \n\t-GitURL-{github_url} \n\t-AvaURL-{avatar_url} \n\t-Name-{name} \n\t-Handle-{handle}")
                 team.objects.create(owner=proj_owner[0], user_id=user_id, github_url=github_url, avatar_url=avatar_url, name=name, handle=handle)
             else:
                 team_obj.update(date_updated=utc.localize(datetime.now()) , github_url=github_url, avatar_url=avatar_url, name=name, handle=handle)
