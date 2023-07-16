@@ -263,4 +263,36 @@
       "owner": "cashubtc"
     }
   }
+  {
+    "model": "git_lurker.project",
+    "pk": 34,
+    "fields": {
+      "repository": "mercury-wallet",
+      "owner": "layer2tech"
+    }
+  }
+  {
+    "model": "git_lurker.project",
+    "pk": 35,
+    "fields": {
+      "repository": "Floresta",
+      "owner": "Davidson-Souza"
+    }
+  }
+  {
+    "model": "git_lurker.project",
+    "pk": 36,
+    "fields": {
+      "repository": "bitcoin",
+      "owner": "bitcoin-inquisition"
+    }
+  }
+  {
+    "model": "git_lurker.project",
+    "pk": 37,
+    "fields": {
+      "repository": "mycitadel-desktop",
+      "owner": "mycitadel"
+    }
+  }
 ]
