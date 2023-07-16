@@ -37,7 +37,7 @@ def index(request):
         # Check if the release data in the DB is recent. If not update via the GitHub APIs.
         if not release_data or release_data[0]["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=12):
             endpoint1 = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
-            release_data_api = get_release_info(endpoint1, verify_ssl, headers, repo)
+            release_data_api = get_release_info(endpoint1, verify_ssl, headers, rep_id)
             version = release_data_api["version"]
             publisher = release_data_api["publisher"]
             latest_release = release_data_api["latest_release"]
@@ -85,7 +85,7 @@ def release_view(request, owner, repo):
         # Check if the release data in the DB is recent. If not update via the GitHub APIs.
         if not release_data or release_data[0]["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=12):
             endpoint1 = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
-            release_data = get_release_info(endpoint1, verify_ssl, headers, repo)
+            release_data = get_release_info(endpoint1, verify_ssl, headers, rep_id)
         else:
             release_data = release_data[0]
 
