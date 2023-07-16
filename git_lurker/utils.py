@@ -1,6 +1,6 @@
 # Import Libraries
 import requests, markdown, pytz
-from .models import release, repo_list, team, repo_detail, contrib
+from .models import release, project, repo_list, team, repo_detail, contrib
 from datetime import datetime
 
 # Time Zone localization to UTC
@@ -25,20 +25,20 @@ def get_release_info(endpoint, ssl, head, rep_id):
             version = releases["tag_name"]
             publisher = releases["author"]["login"]
             latest_release = releases["published_at"]
-            git_id = releases["id"]
             # Specifically convert release body text from markdown to HTML so that it can be formatted when rendered
             notes = markdown.markdown(releases["body"])
             if notes == "":
                 notes = '<p> No Release Notes Provided. </p>'
             release_data = {"version":version, "publisher":publisher, "latest_release":latest_release, "notes":notes}
-            # Uses the Git ID to check if we already have a record.
+            # Uses the proj ID to check if we already have a record.
             # If we don't we create a DB record, if we do we update the record
             # date_updated force changed to as the DB record is updated.
-            release_obj =  release.objects.filter(git_id=git_id)
+            proj = project.objects.filter(id=rep_id)
+            release_obj =  release.objects.filter(repository=proj[0])
             if not release_obj:
-                release.objects.create(repository=rep_id, latest_release=latest_release, publisher=publisher, version=version, notes=notes, git_id=git_id)
+                release.objects.create(repository=proj[0], latest_release=latest_release, publisher=publisher, version=version, notes=notes)
             else:
-                release_obj.update(date_updated=utc.localize(datetime.now()) , latest_release=latest_release, publisher=publisher, version=version, notes=notes, git_id=git_id)
+                release_obj.update(date_updated=utc.localize(datetime.now()) , latest_release=latest_release, publisher=publisher, version=version, notes=notes)
             return release_data
     return None
 
