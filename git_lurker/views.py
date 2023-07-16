@@ -59,7 +59,7 @@ def index(request):
         if not version and not publisher and not latest_release:
             projects_data.append({})
         else: 
-            projects_data.append({"version":version, "latest_release":latest_release, "publisher":publisher, "owner":owner, "repo":repo, "recent":recent, "notes":notes})#
+            projects_data.append({"version":version, "latest_release":latest_release, "publisher":publisher, "owner":owner, "repo":repo, "recent":recent, "notes":notes})
         projects_data_sorted = sorted(projects_data, key=lambda x: (x['latest_release']), reverse=True)
     
     date_updated = release.objects.values().last()["date_updated"]
