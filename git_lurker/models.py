@@ -18,6 +18,7 @@ class release(models.Model):
     publisher = models.CharField(max_length=200, default='')
     version = models.CharField(max_length=200, default='')
     notes = models.TextField(default='')
+    git_id = models.IntegerField()
 
     def __int__(self):
         return self.repository, self.version
