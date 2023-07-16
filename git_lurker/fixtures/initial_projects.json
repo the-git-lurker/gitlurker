@@ -1,6 +1,6 @@
 [
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 1,
     "fields": {
       "repository": "bitcoin",
@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 2,
     "fields": {
       "repository": "lndconnect",
@@ -16,7 +16,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 3,
     "fields": {
       "repository": "lnbits",
@@ -24,7 +24,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 4,
     "fields": {
       "repository": "cashu",
@@ -32,7 +32,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 5,
     "fields": {
       "repository": "mempool",
@@ -40,7 +40,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 6,
     "fields": {
       "repository": "sparrow",
@@ -48,7 +48,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 7,
     "fields": {
       "repository": "robosats",
@@ -56,7 +56,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 8,
     "fields": {
       "repository": "joinmarket-clientserver",
@@ -64,7 +64,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 9,
     "fields": {
       "repository": "jam",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 10,
     "fields": {
       "repository": "specter-desktop",
@@ -80,7 +80,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 11,
     "fields": {
       "repository": "start-os",
@@ -88,7 +88,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 12,
     "fields": {
       "repository": "RTL",
@@ -96,7 +96,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 13,
     "fields": {
       "repository": "lnd",
@@ -104,7 +104,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 14,
     "fields": {
       "repository": "lightning",
@@ -112,7 +112,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 15,
     "fields": {
       "repository": "electrs",
@@ -120,7 +120,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 16,
     "fields": {
       "repository": "btc-rpc-explorer",
@@ -128,7 +128,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 17,
     "fields": {
       "repository": "btcpayserver",
@@ -136,7 +136,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 18,
     "fields": {
       "repository": "bluewallet",
@@ -144,7 +144,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 19,
     "fields": {
       "repository": "raspibolt",
@@ -152,7 +152,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 20,
     "fields": {
       "repository": "raspiblitz",
@@ -160,7 +160,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 21,
     "fields": {
       "repository": "umbrel",
@@ -168,7 +168,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 22,
     "fields": {
       "repository": "zeus",
@@ -176,7 +176,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 23,
     "fields": {
       "repository": "eclair",
@@ -184,7 +184,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 24,
     "fields": {
       "repository": "phoenix",
@@ -192,7 +192,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 25,
     "fields": {
       "repository": "nunchuk-desktop",
@@ -200,7 +200,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 26,
     "fields": {
       "repository": "lightning-browser-extension",
@@ -208,7 +208,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 27,
     "fields": {
       "repository": "lightning-terminal",
@@ -216,7 +216,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 28,
     "fields": {
       "repository": "thunderhub",
@@ -224,7 +224,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 29,
     "fields": {
       "repository": "lndg",
@@ -232,7 +232,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 30,
     "fields": {
       "repository": "mutiny-node",
@@ -240,7 +240,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 31,
     "fields": {
       "repository": "nostr-wallet-connect",
@@ -248,7 +248,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 32,
     "fields": {
       "repository": "eNuts",
@@ -256,7 +256,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 33,
     "fields": {
       "repository": "cashu",
@@ -264,7 +264,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 34,
     "fields": {
       "repository": "mercury-wallet",
@@ -272,7 +272,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 35,
     "fields": {
       "repository": "Floresta",
@@ -280,7 +280,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 36,
     "fields": {
       "repository": "bitcoin",
@@ -288,7 +288,7 @@
     }
   },
   {
-    "model": "project",
+    "model": "git_lurker.project",
     "pk": 37,
     "fields": {
       "repository": "mycitadel-desktop",
