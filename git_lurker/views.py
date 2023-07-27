@@ -35,7 +35,7 @@ def index(request):
         release_data = release.objects.filter(repository=rep_id).values()
 
         # Check if the release data in the DB is recent. If not update via the GitHub APIs.
-        if not release_data or release_data[0]["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=12):
+        if not release_data or release_data[0]["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=3):
             endpoint1 = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
             release_data_api = get_release_info(endpoint1, verify_ssl, headers, rep_id)
             version = release_data_api["version"]
@@ -83,7 +83,7 @@ def release_view(request, owner, repo):
         release_data = release.objects.filter(repository=rep_id).values()
 
         # Check if the release data in the DB is recent. If not update via the GitHub APIs.
-        if not release_data or release_data[0]["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=12):
+        if not release_data or release_data[0]["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=3):
             endpoint1 = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
             release_data = get_release_info(endpoint1, verify_ssl, headers, rep_id)
         else:
@@ -108,7 +108,7 @@ def project_view(request, owner):
         teams_data = team.objects.filter(owner=proj_owner[0])
 
         # Repository List: Check if the release data in the DB is recent. If not update via the GitHub APIs.
-        if not repos_data or repos_data.values().first()["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=12):
+        if not repos_data or repos_data.values().first()["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=3):
             endpoint1 = f"https://api.github.com/orgs/{owner}/repos"
             endpoint1_usr = f"https://api.github.com/users/{owner}/repos"
             repos = get_repo_info(endpoint1, endpoint1_usr, verify_ssl, headers, proj_owner)
@@ -124,7 +124,7 @@ def project_view(request, owner):
             repos = sorted(repos_unsorted, key=lambda x: x['name'].lower())
 
         # Repository List: Check if the release data in the DB is recent. If not update via the GitHub APIs.
-        if not teams_data or teams_data.values().first()["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=12):
+        if not teams_data or teams_data.values().first()["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=3):
             endpoint2 = f"https://api.github.com/orgs/{owner}/public_members"
             members = get_members(endpoint2, verify_ssl, headers, proj_owner)
         else:
@@ -164,14 +164,14 @@ def repository_view(request, owner, repo):
         contrib_data = contrib.objects.filter(repository=rep_id).values()
 
         # Check if the Repo Summary data in the DB is recent. If not update via the GitHub APIs.
-        if not repository_data or repository_data[0]["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=12):
+        if not repository_data or repository_data[0]["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=3):
             endpoint1 = f"https://api.github.com/repos/{owner}/{repo}"
             summary = get_repo_summary(endpoint1, verify_ssl, headers, rep_id)
         else:
             summary = repository_data[0]
         
         # Repository List: Check if the release data in the DB is recent. If not update via the GitHub APIs.
-        if not contrib_data or contrib_data.values().first()["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=12):
+        if not contrib_data or contrib_data.values().first()["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=3):
             endpoint2 = f"https://api.github.com/repos/{owner}/{repo}/contributors?per_page=50"
             contribs = get_contributors(endpoint2, verify_ssl, headers, rep_id)
         else:
