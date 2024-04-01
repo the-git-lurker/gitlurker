@@ -33,40 +33,66 @@ def index(request):
         repo = p["repository"]
         rep_id = p["id"]
         release_data = release.objects.filter(repository=rep_id).values()
-
+        category = p["category"]
+        subcategory = p["subcategory"]
         # Check if the release data in the DB is recent. If not update via the GitHub APIs.
         if not release_data or release_data[0]["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=3):
             endpoint1 = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
             release_data_api = get_release_info(endpoint1, verify_ssl, headers, rep_id)
             version = release_data_api["version"]
             publisher = release_data_api["publisher"]
-            latest_release = release_data_api["latest_release"]
+            latest_release_api = release_data_api["latest_release"]
+            latest_release = latest_release_api[:10] + " " + latest_release_api[11:16]
             notes = release_data_api["notes"]
         else:
             version = release_data[0]["version"]
             publisher = release_data[0]["publisher"]
-            latest_release = release_data[0]["latest_release"]
+            latest_release = release_data[0]["latest_release"][:10] + " " + release_data[0]["latest_release"][11:16]
             notes = release_data[0]["notes"]
         
         date_only = latest_release[:10]
         numdate = date.fromisoformat(date_only)
-        cutoff = date.fromordinal(date.today().toordinal()-7)
-        if numdate >= cutoff:
-            recent = "Y"
+        cutoff_7 = date.fromordinal(date.today().toordinal()-7)
+        cutoff_14 = date.fromordinal(date.today().toordinal()-14)
+        cutoff_365 = date.fromordinal(date.today().toordinal()-365)
+        if numdate >= cutoff_7:
+            recent = "7"
+        elif numdate >= cutoff_14:
+            recent = "14"
+        elif numdate < cutoff_365:
+            recent = "365"
         else:
             recent = "N"
 
         if not version and not publisher and not latest_release:
             projects_data.append({})
         else: 
-            projects_data.append({"version":version, "latest_release":latest_release, "publisher":publisher, "owner":owner, "repo":repo, "recent":recent, "notes":notes})
+            projects_data.append({"version":version, "latest_release":latest_release, "publisher":publisher, "owner":owner, "repo":repo, "recent":recent, "notes":notes, "category":category, "subcategory":subcategory})
         projects_data_sorted = sorted(projects_data, key=lambda x: (x['latest_release']), reverse=True)
     
     date_updated = release.objects.values().last()["date_updated"]
     date_updated_str = f"{date_updated}"
     latest_pull = f"Data updated on: {date_updated_str[:16]} UTC"
 
-    return render(request, "git_lurker/index.html", context={"projects":projects_data_sorted, "latest_pull":latest_pull})
+    # Subset already sorted list by category
+    btc_project_data_sorted = []
+    lightning_project_data_sorted = []
+    other_project_data_sorted = []
+    ecash_project_data_sorted = []
+    nostr_project_data_sorted = []
+    for proj in projects_data_sorted:
+        if proj["category"] == "bitcoin":
+            btc_project_data_sorted.append(proj)
+        elif proj["category"] == "lightning":
+            lightning_project_data_sorted.append(proj)
+        elif proj["category"] == "other":
+            other_project_data_sorted.append(proj)
+        elif proj["category"] == "e-cash":
+            ecash_project_data_sorted.append(proj)
+        elif proj["category"] == "nostr":
+            nostr_project_data_sorted.append(proj)
+    
+    return render(request, "git_lurker/index.html", context={"projects":projects_data_sorted, "latest_pull":latest_pull, "btc_projects":btc_project_data_sorted, "lightning_projects":lightning_project_data_sorted, "other_projects":other_project_data_sorted, "ecash_projects":ecash_project_data_sorted, "nostr_projects":nostr_project_data_sorted})
 
 # Support page
 def support_view(request):
@@ -95,6 +121,9 @@ def release_view(request, owner, repo):
         date_updated = release.objects.values().last()["date_updated"]
         date_updated_str = f"{date_updated}"
         latest_pull = f"Data updated on: {date_updated_str[:16]} UTC"
+
+        release_data["latest_release"] = release_data["latest_release"][:10] + " " + release_data["latest_release"][11:19] + " UTC"
+
         return render(request, "git_lurker/release.html", context={"release":release_data, "owner":owner, "repo":repo, "release_url":f"https://github.com/{owner}/{repo}/releases", "latest_pull":latest_pull})
     else:
         return redirect("index")
@@ -148,6 +177,10 @@ def project_view(request, owner):
         date_updated = repos_data.values().last()["date_updated"]
         date_updated_str = f"{date_updated}"
         latest_pull = f"Data updated on: {date_updated_str[:16]} UTC"
+
+        # Adjust the datetime to be "YYYY-MM-DD HH:MM" format for all repo in repos
+        for repo_item in repos:
+            repo_item["last_updated"] = repo_item["last_updated"][:10] + " " + repo_item["last_updated"][11:19]
 
         return render(request, "git_lurker/project.html", context={"owner":owner, "team_members":members, "repos": repos, "owner_url":owner_url, "latest_pull":latest_pull})
     else:
