@@ -5,6 +5,8 @@ class project(models.Model):
     """Projects to Include"""
     repository = models.CharField(max_length=100, default='')
     owner = models.CharField(max_length=100, default='')
+    category = models.CharField(max_length=100, default='')
+    subcategory = models.CharField(max_length=100, default='')
     
     def __str__(self):
         return self.repository

@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <title>Git Lurker</title>
 
         {% bootstrap_css %}
@@ -18,9 +19,15 @@
                 <nav class="navbar bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
                     <div class="container-fluid">
                         <a class="navbar-brand text-light bg-dark fs-3" href="{% url 'index' %}">
-                            <img src="{% static 'lurkey.png' %}" alt="Luker in the deep" width="50" height="50" class="rounded d-inline-block align-text-middle">
+                            <img src="{% static 'lurkey_2_4.png' %}" alt="Follow" width="50" height="50" class="rounded d-inline-block align-text-middle">
                             Git Lurker
                         </a>
+                        <div class="d-flex justify-content-center">
+                            <div class="p-2"><i class="fas fa-info text-info"></i> : Data are sorted by the latest release (UTC).</div>
+                            <div class="p-2"><i class="fas fa-star text-warning"></i> : Last 7 days</div>
+                            <div class="p-2"><i class="fas fa-moon text-warning"></i> : Last 14 days</div>
+                            <div class="p-2"><i class="fas fa-bed text-warning"></i> : More than 365 days</div>
+                        </div>
                     </div>
                 </nav>
 

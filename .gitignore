@@ -2,3 +2,8 @@ gl_env/
 __pycache__/
 etc/
 *.sqlite3
+.env
+settings.py
+test.py
+*.csv
+backup/
