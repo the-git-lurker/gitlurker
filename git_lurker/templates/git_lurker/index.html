@@ -34,7 +34,7 @@
     </div>
     <h1 class="fs-4 fw-semibold pt-2">Projects</h1>
     <div class="container">
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs content-to-hide" role="tablist">
             <li class="nav-item" role="presentation">
               <a class="nav-link active" id="all_projects" data-bs-toggle="tab" href="#all-tabpanel" role="tab" aria-controls="all-tabpanel" aria-selected="true">All <i class="fas fa-globe"></i></a>
             </li>
@@ -57,14 +57,38 @@
                 <a class="nav-link text-info" id="key" data-bs-toggle="tab" href="#key-tabpanel" role="tab" aria-controls="key-tabpanel" aria-selected="false">Key <i class="fas fa-key"></i></a>
             </li>
         </ul>
+        <ul class="nav nav-tabs content-to-show" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="all_projects" data-bs-toggle="tab" href="#all-tabpanel" role="tab" aria-controls="all-tabpanel" aria-selected="true"><i class="fas fa-globe"></i></a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="btc_projects" data-bs-toggle="tab" href="#btc-tabpanel" role="tab" aria-controls="btc-tabpanel" aria-selected="false"><i class="fas fa-coins"></i></a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="lightning_projects" data-bs-toggle="tab" href="#lightning-tabpanel" role="tab" aria-controls="lightning-tabpanel" aria-selected="false"><i class="fas fa-bolt"></i></a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="ecash_projects" data-bs-toggle="tab" href="#ecash-tabpanel" role="tab" aria-controls="ecash-tabpanel" aria-selected="false"><i class="fas fa-money-bill"></i></a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="nostr_projects" data-bs-toggle="tab" href="#nostr-tabpanel" role="tab" aria-controls="nostr-tabpanel" aria-selected="false"><i class="fas fa-bullhorn"></i></a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="other_projects" data-bs-toggle="tab" href="#other-tabpanel" role="tab" aria-controls="other-tabpanel" aria-selected="false"><i class="fas fa-question"></i></a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link text-info" id="key" data-bs-toggle="tab" href="#key-tabpanel" role="tab" aria-controls="key-tabpanel" aria-selected="false"><i class="fas fa-key"></i></a>
+            </li>
+        </ul>
         <div class="tab-content pt-2" id="tab-content">
             <div class="tab-pane active" id="all-tabpanel" role="tabpanel" aria-labelledby="all_projects">
                 <table class="table table-dark table-striped table-hover table-sm" id="all-table">
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Repository</th>
+                            <th class="content-to-hide" scope="col">Owner</th>
+                            <th class="content-to-hide" scope="col">Repository</th>
+                            <th class="content-to-show" scope="col">Owner / Repository</th>
                             <th scope="col">Version</th>
                             <th scope="col">Release Date</th>
                         </tr>
@@ -85,8 +109,9 @@
                                         <i class="fas fa-question"></i>
                                     {% endif %}
                                 </td>
-                                <td><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
-                                <td><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                                <td class="content-to-hide"><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
+                                <td class="content-to-hide"><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                                <td class="content-to-show"><a href="/{{ project.owner }}/project">{{ project.owner }}</a> / <br> <a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
                                 <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.version }}</a></td>
                                 <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.latest_release }} </a>
                                     <span class="text-warning">
@@ -109,8 +134,9 @@
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Repository</th>
+                            <th class="content-to-hide" scope="col">Owner</th>
+                            <th class="content-to-hide" scope="col">Repository</th>
+                            <th class="content-to-show" scope="col">Owner / Repository</th>
                             <th scope="col">Version</th>
                             <th scope="col">Release Date</th>
                         </tr>
@@ -145,8 +171,9 @@
                                         <i class="fas fa-signature"></i>
                                     {% endif %}
                                 </td>
-                                <td><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
-                                <td><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                                <td class="content-to-hide"><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
+                                <td class="content-to-hide"><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                                <td class="content-to-show"><a href="/{{ project.owner }}/project">{{ project.owner }}</a> / <br> <a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
                                 <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.version }}</a></td>
                                 <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.latest_release }} </a>
                                     <span class="text-warning">
@@ -169,8 +196,9 @@
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Repository</th>
+                            <th class="content-to-hide" scope="col">Owner</th>
+                            <th class="content-to-hide" scope="col">Repository</th>
+                            <th class="content-to-show" scope="col">Owner / Repository</th>
                             <th scope="col">Version</th>
                             <th scope="col">Release Date</th>
                         </tr>
@@ -205,8 +233,9 @@
                                     <i class="fas fa-signature"></i>
                                 {% endif %}
                             </td>
-                            <td><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
-                            <td><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                            <td class="content-to-hide"><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
+                                <td class="content-to-hide"><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                                <td class="content-to-show"><a href="/{{ project.owner }}/project">{{ project.owner }}</a> / <br> <a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
                             <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.version }}</a></td>
                             <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.latest_release }} </a>
                                 <span class="text-warning">
@@ -229,8 +258,9 @@
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Repository</th>
+                            <th class="content-to-hide" scope="col">Owner</th>
+                            <th class="content-to-hide" scope="col">Repository</th>
+                            <th class="content-to-show" scope="col">Owner / Repository</th>
                             <th scope="col">Version</th>
                             <th scope="col">Release Date</th>
                         </tr>
@@ -265,8 +295,9 @@
                                     <i class="fas fa-signature"></i>
                                 {% endif %}
                             </td>
-                            <td><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
-                            <td><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                            <td class="content-to-hide"><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
+                                <td class="content-to-hide"><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                                <td class="content-to-show"><a href="/{{ project.owner }}/project">{{ project.owner }}</a> / <br> <a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
                             <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.version }}</a></td>
                             <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.latest_release }} </a>
                                 <span class="text-warning">
@@ -289,8 +320,9 @@
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Repository</th>
+                            <th class="content-to-hide" scope="col">Owner</th>
+                            <th class="content-to-hide" scope="col">Repository</th>
+                            <th class="content-to-show" scope="col">Owner / Repository</th>
                             <th scope="col">Version</th>
                             <th scope="col">Release Date</th>
                         </tr>
@@ -325,8 +357,9 @@
                                     <i class="fas fa-signature"></i>
                                 {% endif %}
                             </td>
-                            <td><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
-                            <td><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                            <td class="content-to-hide"><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
+                                <td class="content-to-hide"><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                                <td class="content-to-show"><a href="/{{ project.owner }}/project">{{ project.owner }}</a> / <br> <a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
                             <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.version }}</a></td>
                             <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.latest_release }} </a>
                                 <span class="text-warning">
@@ -349,8 +382,9 @@
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Repository</th>
+                            <th class="content-to-hide" scope="col">Owner</th>
+                            <th class="content-to-hide" scope="col">Repository</th>
+                            <th class="content-to-show" scope="col">Owner / Repository</th>
                             <th scope="col">Version</th>
                             <th scope="col">Release Date</th>
                         </tr>
@@ -385,8 +419,9 @@
                                     <i class="fas fa-signature"></i>
                                 {% endif %}
                             </td>
-                            <td><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
-                            <td><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                            <td class="content-to-hide"><a href="/{{ project.owner }}/project">{{ project.owner }}</a></td>
+                                <td class="content-to-hide"><a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
+                                <td class="content-to-show"><a href="/{{ project.owner }}/project">{{ project.owner }}</a> / <br> <a href="/{{ project.owner }}/{{ project.repo }}/repo">{{ project.repo }}</a></td>
                             <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.version }}</a></td>
                             <td><a href="/{{ project.owner }}/{{ project.repo }}/latest">{{ project.latest_release }} </a>
                                 <span class="text-warning">
@@ -422,4 +457,34 @@
         </div>
         <p class="text-info text-end">{{ latest_pull }}</p>
     </div>
+
+    {% block javascript %}
+        <script>
+            function hideColumnsOnSmallScreen() {
+                if (window.innerWidth <= 600) {
+                    // Hide the columns when screen width is too small
+                    document.querySelectorAll('.content-to-hide').forEach(function(column) {
+                    column.style.display = 'none';
+                    });
+                    document.querySelectorAll('.content-to-show').forEach(function(column) {
+                    column.style.display = '';
+                    });
+                } else {
+                    // Show the columns when screen width is large enough
+                    document.querySelectorAll('.content-to-hide').forEach(function(column) {
+                    column.style.display = '';
+                    });
+                    document.querySelectorAll('.content-to-show').forEach(function(column) {
+                    column.style.display = 'none';
+                    });
+                }
+                }
+
+                // Apply the hiding logic when the page initially loads
+                window.addEventListener('load', hideColumnsOnSmallScreen);
+
+                // Apply the hiding logic when the window is resized
+                window.addEventListener('resize', hideColumnsOnSmallScreen);
+        </script>
+    {% endblock %}
 {% endblock content %}
