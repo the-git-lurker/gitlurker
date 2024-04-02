@@ -14,20 +14,19 @@
     </head>
 
     <body class="bg-dark">
-        <main role="main" class="container text-bg-dark">
+        <main role="main" class="container text-light">
             <div>
-                <nav class="navbar bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+                <nav class="navbar border-bottom border-bottom-dark" data-bs-theme="dark">
                     <div class="container-fluid">
-                        <a class="navbar-brand text-light bg-dark fs-3" href="{% url 'index' %}">
+                        <a class="navbar-brand text-light fs-3" href="{% url 'index' %}">
                             <img src="{% static 'lurkey_2_4.png' %}" alt="Follow" width="50" height="50" class="rounded d-inline-block align-text-middle">
                             Git Lurker
                         </a>
-                        <div class="d-flex justify-content-center">
-                            <div class="p-2"><i class="fas fa-info text-info"></i> : Data are sorted by the latest release (UTC).</div>
-                            <div class="p-2"><i class="fas fa-star text-warning"></i> : Last 7 days</div>
-                            <div class="p-2"><i class="fas fa-moon text-warning"></i> : Last 14 days</div>
-                            <div class="p-2"><i class="fas fa-bed text-warning"></i> : More than 365 days</div>
-                        </div>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link text-info" href="{% url 'support' %}"><i class="fas fa-info"></i>&nbsp;About/Support</a>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
 

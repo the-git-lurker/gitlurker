@@ -1,39 +1,16 @@
 {% extends "git_lurker/base.html" %}
 
 {% block content %}
-    <div class="accordion accordion-flush" id="about">
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fas fa-info"></i>&nbsp;About
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#about">
-                <div class="accordion-body bg-dark text-light border border-secondary">
-                    <p>
-                        This site tracks and summarizes a bunch of GitHub projects I am interested in.
-                        It is designed for quick reference purposes, therefore any projects info is limited. 
-                        Sometimes, a quick summary is all the info you need.
-                    </p>
-                
-                    <p> 
-                        Don't be alarmed if some pages take time to load. If the data are older than 3 hours the application will fetch new data from the GitHub API.
-                        Otherwise, if the data are more recent it will be pulled from the back-end database.
-                    </p>
-                
-                    <p> 
-                        Any <a href="{% url 'support' %}">support sats</a> you would like to give are welcome. These will be used to cover site fees, or buy beer (most likely the latter).
-                    </p>
-
-                    <p>
-                        If you would like to request any features or the addition of any specific projects please feel free to drop an email to: <b>gitlurker@proton.me</b>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h1 class="fs-4 fw-semibold pt-2">Projects</h1>
     <div class="container">
+        <div class="d-flex justify-content-center ">
+            <div class="p-2"><i class="fas fa-info text-info"></i> &darr; latest release (UTC)</div>
+            <div class="p-2"><i class="fas fa-star text-warning"></i> &le;7 days</div>
+            <div class="p-2"><i class="fas fa-moon text-warning"></i> &le;14 days</div>
+            <div class="p-2"><i class="fas fa-bed text-warning"></i> &gt;365 days</div>
+        </div>
+    
+        <h1 class="fs-4 fw-semibold pt-2">Projects</h1>
+
         <ul class="nav nav-tabs content-to-hide" role="tablist">
             <li class="nav-item" role="presentation">
               <a class="nav-link active" id="all_projects" data-bs-toggle="tab" href="#all-tabpanel" role="tab" aria-controls="all-tabpanel" aria-selected="true">All <i class="fas fa-globe"></i></a>
@@ -52,9 +29,6 @@
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="other_projects" data-bs-toggle="tab" href="#other-tabpanel" role="tab" aria-controls="other-tabpanel" aria-selected="false">Other <i class="fas fa-question"></i></a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link text-info" id="key" data-bs-toggle="tab" href="#key-tabpanel" role="tab" aria-controls="key-tabpanel" aria-selected="false">Key <i class="fas fa-key"></i></a>
             </li>
         </ul>
         <ul class="nav nav-tabs content-to-show" role="tablist">
@@ -75,9 +49,6 @@
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="other_projects" data-bs-toggle="tab" href="#other-tabpanel" role="tab" aria-controls="other-tabpanel" aria-selected="false"><i class="fas fa-question"></i></a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link text-info" id="key" data-bs-toggle="tab" href="#key-tabpanel" role="tab" aria-controls="key-tabpanel" aria-selected="false"><i class="fas fa-key"></i></a>
             </li>
         </ul>
         <div class="tab-content pt-2" id="tab-content">
@@ -439,22 +410,23 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane d-flex flex-wrap justify-content-center" id="key-tabpanel" role="tabpanel" aria-labelledby="key">
-                <div class ="p-2"><i class="fas fa-desktop"></i> Client</div>
-                <div class ="p-2"><i class="fas fa-terminal"></i> Development</div>
-                <div class ="p-2"><i class="fas fa-exchange-alt"></i> Exchange</div>
-                <div class ="p-2"><i class="fas fa-plug"></i> Interface</div>
-                <div class ="p-2"><i class="fas fa-network-wired"></i> Node</div>
-                <div class ="p-2"><i class="fas fa-wallet"></i> Wallet</div>
-                <div class ="p-2"><i class="fas fa-server"></i> Server</div>
-                <div class ="p-2"><i class="fas fa-credit-card"></i> Payments</div>
-                <div class ="p-2"><i class="fas fa-code"></i> Protocol</div>
-                <div class ="p-2"><i class="fas fa-paper-plane"></i> Relay</div>
-                <div class ="p-2"><i class="fas fa-signature"></i> Signer</div>
-                <div class ="p-2"><i class="fas fa-question"></i> Other</div></div>
-            </div>
         </div>
-        <p class="text-info text-end">{{ latest_pull }}</p>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class ="p-2"><i class="fas fa-desktop"></i> Client</div>
+            <div class ="p-2"><i class="fas fa-terminal"></i> Development</div>
+            <div class ="p-2"><i class="fas fa-exchange-alt"></i> Exchange</div>
+            <div class ="p-2"><i class="fas fa-plug"></i> Interface</div>
+            <div class ="p-2"><i class="fas fa-network-wired"></i> Node</div>
+            <div class ="p-2"><i class="fas fa-wallet"></i> Wallet</div>
+            <div class ="p-2"><i class="fas fa-server"></i> Server</div>
+            <div class ="p-2"><i class="fas fa-question"></i> Other</div>
+            <div class ="p-2"><i class="fas fa-credit-card"></i> Payments</div>
+            <div class ="p-2"><i class="fas fa-code"></i> Protocol</div>
+            <div class ="p-2"><i class="fas fa-paper-plane"></i> Relay</div>
+            <div class ="p-2"><i class="fas fa-signature"></i> Signer</div>
+            <div class ="p-2"><i class="fas fa-question"></i> Other</div></div>
+        </div>
+        <p class="text-info text-center">{{ latest_pull }}</p>
     </div>
 
     {% block javascript %}
