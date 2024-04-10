@@ -1,7 +1,13 @@
 # Import Libraries
 import requests, markdown, pytz
-from .models import release, project, repo_list, team, repo_detail, contrib
-from datetime import datetime
+import ssl
+import time
+from nostr.relay_manager import RelayManager
+from nostr.event import Event
+from nostr.message_type import ClientMessageType
+from nostr.key import PrivateKey
+from .models import release, project, repo_list, team, repo_detail, contrib, note_event
+from datetime import datetime, timedelta
 
 # Time Zone localization to UTC
 utc=pytz.UTC
@@ -262,3 +268,67 @@ def get_contributors(endpoint, ssl, head, rep_id):
         sorted_contributors = sorted(contributors, key=lambda x: x['contributions'], reverse=True)
         return sorted_contributors
     return None
+
+# Function for handling the Nostr notes
+def note_handler(POSTR, POSTR_RELAYS):
+    """
+    This function handles the genrating and publishing Nostr notes for new releases.
+    On deployment it sets up a defauly baseline DB entry for all projects.
+    Upon visiting the index of the site it will check for any new releases and post notes accordingly.
+
+    Parameters:
+        POSTR: The NOSTR key (hex)
+        POSTR_RELAYS: The NOSTR relays (list)
+    """
+    # Set up POSTR key info and relay setup
+    postr_key = PrivateKey(bytes.fromhex(POSTR))
+    relay_manager = RelayManager()
+    for relay in POSTR_RELAYS:
+        relay_manager.add_relay(relay)
+
+    # Get all release objects from the DB with a date latest_release date within the last 7 days
+    seven_days_ago = utc.localize(datetime.now()) - timedelta(days=7)
+    release_objects = release.objects.filter(latest_release__gte=seven_days_ago).values()
+
+    # Iterate through the releases from the last 7 days updated items new releases and create/post notes
+    for obj in release_objects:
+        proj_instance = project.objects.get(id=obj["repository_id"])
+        # First find existing note event in DB and see if it exists
+        event_obj =  note_event.objects.filter(repository=obj["repository_id"])
+        if event_obj:
+            release_date = obj["latest_release"][:10]
+            event_date = event_obj[0].date_updated.strftime("%Y-%m-%d")
+            event_version = event_obj[0].version
+            # If the reases date is after the event date OR the event version is the same as the release then skip
+            if release_date <= event_date or event_version == obj["version"]:
+                continue
+            else:
+                # Prepare to post nostr event relay connection etc.
+                relay_manager.open_connections({"cert_reqs": ssl.CERT_NONE})
+                time.sleep(1.25)
+
+                # Create content
+                note_content = f"""
+                GitLurker spotted a new release for the following GitHub Project:
+
+                - Repository   : {proj_instance.owner}/{proj_instance.repository}
+                - Version      : {obj["version"]}
+                - Published on : {obj["latest_release"]} UTC
+                - Published by : {obj["publisher"]}
+                
+                For more details, and the release notes, check out: https://github.com/{proj_instance.owner}/{proj_instance.repository}/releases/tag/{obj["version"]}
+
+                If you want to find more Freedom Tech Projects and see who is shipping, check out https://gitlurker.info 
+                """
+
+                # Create and sign event
+                event = Event(public_key=postr_key.public_key.hex(), content=note_content)
+                postr_key.sign_event(event)
+                # Publish event and save to DB
+                relay_manager.publish_event(event)
+                time.sleep(1)
+                event_obj.update(date_updated=utc.localize(datetime.now()) , repository=proj_instance, event_id=event.id, version=obj["version"])
+                relay_manager.close_connections()
+        else:
+            # Set up default baseline DB entry for projects without a previous event
+            event_obj.create(date_updated=utc.localize(datetime.now()),repository=proj_instance, event_id="baseline", version="baseline")

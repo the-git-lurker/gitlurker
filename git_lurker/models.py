@@ -81,3 +81,14 @@ class contrib(models.Model):
 
     def __int__(self):
         return self.repository, self.handle
+    
+# Model to hold nostr info
+class note_event(models.Model):
+    """Model to hold event id, version and note publication date for NOSTR"""
+    repository = models.ForeignKey(project, on_delete=models.CASCADE)
+    event_id = models.CharField(max_length=100, default='')
+    date_updated = models.DateTimeField(auto_now=True)
+    version = models.CharField(max_length=200, default='')
+
+    def __int__(self):
+        return self.event_id

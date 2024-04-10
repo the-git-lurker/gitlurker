@@ -1,22 +1,26 @@
 from django.shortcuts import render,redirect
-from .utils import get_release_info, get_members, get_repo_info, get_contributors, get_repo_summary
+from .utils import get_release_info, get_members, get_repo_info, get_contributors, get_repo_summary, note_handler
 from datetime import date, datetime, timedelta
-import pytz, os
+import pytz, os, threading
 from .models import project, release, repo_list, team, repo_detail, contrib
 
 # Time Zone localization to UTC
 utc=pytz.UTC
 
+# Get env variables
+AUTH_TOKEN = os.getenv('AUTH_TOKEN')
+POSTR = os.getenv('POSTR')
+POSTR_RELAYS = [os.getenv('POSTR_RELAY1')]
+
 # API call variables
 verify_ssl = True
 
-# Auth token env variable
-AUTH_TOKEN = os.getenv('AUTH_TOKEN')
-
+# Set Header info for API
 headers = {
             "Accept": "application/vnd.github.v3+json",
             "Authorization" : f"Token {AUTH_TOKEN}"
         }
+
 
 # Handle any pages that are unexpected
 def page_not_found_view(request, exception):
@@ -25,6 +29,13 @@ def page_not_found_view(request, exception):
 # Home view
 def index(request):
     """Summary view. This fetches the latest release information about the projects."""
+
+    # First kick off the Notes thread
+    t = threading.Thread(target=note_handler, args=(POSTR, POSTR_RELAYS))
+    t.setDaemon(True)
+    t.start()
+
+    # Then continue with the rest of the view
     project_list = project.objects.values()
     
     projects_data = [] 
