@@ -7,7 +7,9 @@ Upon loading the page you will see information related to the the projects and t
 
 Don't be alarmed if some pages take a little time to load. If the data are older than 3 hours the application will fetch new data from the GitHub API. Otherwise, if the data are more recent it will be pulled from the back-end database.
 
-With the `All` tab we have the following main category symbols for:
+**Website:** [www.gitlurker.info](https://www.gitlurker.info/)
+
+With the `All` tab selected we have the following main categories:
 - **Bitcoin**
 - **Lightning**
 - **e-Cash**
