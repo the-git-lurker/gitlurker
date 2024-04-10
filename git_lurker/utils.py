@@ -286,11 +286,10 @@ def note_handler(POSTR, POSTR_RELAYS):
     for relay in POSTR_RELAYS:
         relay_manager.add_relay(relay)
 
-    # Get all release objects from the DB with a date latest_release date within the last 7 days
-    seven_days_ago = utc.localize(datetime.now()) - timedelta(days=7)
-    release_objects = release.objects.filter(latest_release__gte=seven_days_ago).values()
+    # Get all release objects from DB
+    release_objects = release.objects.values()
 
-    # Iterate through the releases from the last 7 days updated items new releases and create/post notes
+    # Iterate through the releases and create/post notes
     for obj in release_objects:
         proj_instance = project.objects.get(id=obj["repository_id"])
         # First find existing note event in DB and see if it exists
