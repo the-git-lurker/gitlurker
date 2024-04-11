@@ -302,6 +302,7 @@ def note_handler(POSTR, POSTR_RELAYS):
             if release_date <= event_date or event_version == obj["version"]:
                 continue
             else:
+            	  print(f"Adding {proj_instance.repository} to Nostr, version:{obj['version']}")
                 # Prepare to post nostr event relay connection etc.
                 relay_manager.open_connections({"cert_reqs": ssl.CERT_NONE})
                 time.sleep(1.25)
@@ -323,6 +324,7 @@ def note_handler(POSTR, POSTR_RELAYS):
                 # Create and sign event
                 event = Event(public_key=postr_key.public_key.hex(), content=note_content)
                 postr_key.sign_event(event)
+                print(f"Signature: {event.signature}")
                 # Publish event and save to DB
                 relay_manager.publish_event(event)
                 time.sleep(1)
