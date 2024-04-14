@@ -4,10 +4,9 @@ import ssl
 import time
 from nostr.relay_manager import RelayManager
 from nostr.event import Event
-from nostr.message_type import ClientMessageType
 from nostr.key import PrivateKey
 from .models import release, project, repo_list, team, repo_detail, contrib, note_event
-from datetime import datetime, timedelta
+from datetime import datetime
 
 # Time Zone localization to UTC
 utc=pytz.UTC
@@ -317,12 +316,13 @@ def note_handler(POSTR, POSTR_RELAYS):
                 
                 For more details, and the release notes, check out: https://github.com/{proj_instance.owner}/{proj_instance.repository}/releases/tag/{obj["version"]}
 
-                If you want to find more Freedom Tech Projects and see who is shipping, check out https://gitlurker.info 
+                If you want to discover more freedom tech projects, and see who is shipping, check out https://gitlurker.info 
                 """
 
                 # Create and sign event
                 event = Event(public_key=postr_key.public_key.hex(), content=note_content)
                 postr_key.sign_event(event)
+                print(event.signature)
                 # Publish event and save to DB
                 relay_manager.publish_event(event)
                 time.sleep(1)
