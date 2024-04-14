@@ -10,7 +10,9 @@ utc=pytz.UTC
 # Get env variables
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 POSTR = os.getenv('POSTR')
-POSTR_RELAYS = [os.getenv('POSTR_RELAY1')]
+POSTR_RELAYS = []
+for i in range(1, 10):
+    POSTR_RELAYS.append(os.getenv(f'POSTR_RELAY_{i}'))
 
 # API call variables
 verify_ssl = True
