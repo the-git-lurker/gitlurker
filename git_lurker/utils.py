@@ -269,15 +269,16 @@ def get_contributors(endpoint, ssl, head, rep_id):
     return None
 
 # Function for handling the Nostr notes
-def note_handler(POSTR, POSTR_RELAYS, PUBLISH):
+def note_handler(POSTR: str, POSTR_RELAYS: list, PUBLISH: bool):
     """
     This function handles the genrating and publishing Nostr notes for new releases.
     On deployment it sets up a defauly baseline DB entry for all projects.
     Upon visiting the index of the site it will check for any new releases and post notes accordingly.
 
     Parameters:
-        POSTR: The NOSTR key (hex)
+        POSTR: The NOSTR key (hex string)
         POSTR_RELAYS: The NOSTR relays (list)
+        PUBLISH: Publish to relays (boolean)
     """
     # Set up POSTR key info and relay setup
     postr_key = PrivateKey(bytes.fromhex(POSTR))
@@ -297,12 +298,13 @@ def note_handler(POSTR, POSTR_RELAYS, PUBLISH):
             release_date = obj["latest_release"][:10]
             event_date = event_obj[0].date_updated.strftime("%Y-%m-%d")
             event_version = event_obj[0].version
-            # If the reases date is after the event date OR the event version is the same as the release then skip
+            # If the release date is before the event date OR the event version is the same as the release then skip
             if release_date <= event_date or event_version == obj["version"]:
                 continue
             else:
-                print(f"Preparing Nostr Event:")
-                print(f"Release Date: {release_date} Event Date: {event_date}\nRelease Version: {obj['version']} Event Version: {event_version}")
+                print(f"\nPreparing Nostr Event:")
+                print(f"\t-Release Date : {release_date} Event Date : {event_date}")
+                print(f"\t-Release Version : {obj['version']} Event Version : {event_version}")
                 # Prepare to post nostr event relay connection etc.
                 relay_manager.open_connections({"cert_reqs": ssl.CERT_NONE})
                 time.sleep(1.25)
@@ -328,7 +330,7 @@ If you want to discover more freedom tech projects, and see who is shipping, che
                 postr_key.sign_event(event)
                 
                 # Publish event to relays
-                if PUBLISH == True:
+                if PUBLISH:
                     relay_manager.publish_event(event)
                 else:
                     print("Skipping publish")
@@ -337,10 +339,11 @@ If you want to discover more freedom tech projects, and see who is shipping, che
 
                 # Update DB
                 event_obj.update(date_updated=utc.localize(datetime.now()) , repository=proj_instance, event_id=event.id, version=obj["version"])
+                time.sleep(1)
                 check_db = note_event.objects.filter(repository=obj["repository_id"])
-                print(f"New Nostr Event ID: {check_db[0].event_id}")
-                print(f"Published on: {check_db[0].date_updated}")
-                print(f"Version: {check_db[0].version}")
+                print(f"Updated Nostr Event:")
+                print(f"\t-Release Date : {release_date} Event Date : {check_db[0].date_updated.strftime('%Y-%m-%d')}")
+                print(f"\t-Release Version : {obj['version']} Event Version : {check_db[0].version}")
         else:
             # Set up default baseline DB entry for projects without a previous event
             event_obj.create(date_updated=utc.localize(datetime.now()),repository=proj_instance, event_id="baseline", version="baseline")

@@ -33,11 +33,6 @@ def page_not_found_view(request, exception):
 def index(request):
     """Summary view. This fetches the latest release information about the projects."""
 
-    # First kick off the Notes thread
-    t = threading.Thread(target=note_handler, args=(POSTR, POSTR_RELAYS, PUBLISH))
-    t.setDaemon(True)
-    t.start()
-
     # Then continue with the rest of the view
     project_list = project.objects.values()
     
@@ -106,6 +101,11 @@ def index(request):
         elif proj["category"] == "nostr":
             nostr_project_data_sorted.append(proj)
     
+    # Kick off the Notes thread
+    t = threading.Thread(target=note_handler, args=(POSTR, POSTR_RELAYS, PUBLISH))
+    t.setDaemon(True)
+    t.start()
+
     return render(request, "git_lurker/index.html", context={"projects":projects_data_sorted, "latest_pull":latest_pull, "btc_projects":btc_project_data_sorted, "lightning_projects":lightning_project_data_sorted, "other_projects":other_project_data_sorted, "ecash_projects":ecash_project_data_sorted, "nostr_projects":nostr_project_data_sorted})
 
 # Support page
