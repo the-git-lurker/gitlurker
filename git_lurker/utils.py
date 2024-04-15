@@ -269,7 +269,7 @@ def get_contributors(endpoint, ssl, head, rep_id):
     return None
 
 # Function for handling the Nostr notes
-def note_handler(POSTR, POSTR_RELAYS):
+def note_handler(POSTR, POSTR_RELAYS, PUBLISH):
     """
     This function handles the genrating and publishing Nostr notes for new releases.
     On deployment it sets up a defauly baseline DB entry for all projects.
@@ -298,11 +298,11 @@ def note_handler(POSTR, POSTR_RELAYS):
             event_date = event_obj[0].date_updated.strftime("%Y-%m-%d")
             event_version = event_obj[0].version
             # If the reases date is after the event date OR the event version is the same as the release then skip
-            print(f"Release Date: {release_date} Event Date: {event_date} Event Version: {event_version} Release Version: {obj['version']}")
-            print(f"{event_obj.values()}")
             if release_date <= event_date or event_version == obj["version"]:
                 continue
             else:
+                print(f"Preparing Nostr Event:")
+                print(f"Release Date: {release_date} Event Date: {event_date}\nRelease Version: {obj['version']} Event Version: {event_version}")
                 # Prepare to post nostr event relay connection etc.
                 relay_manager.open_connections({"cert_reqs": ssl.CERT_NONE})
                 time.sleep(1.25)
@@ -327,11 +327,20 @@ If you want to discover more freedom tech projects, and see who is shipping, che
 
                 postr_key.sign_event(event)
                 
-                # Publish event and save to DB
-                # relay_manager.publish_event(event)
+                # Publish event to relays
+                if PUBLISH == True:
+                    relay_manager.publish_event(event)
+                else:
+                    print("Skipping publish")
                 time.sleep(1)
-                event_obj.update(date_updated=utc.localize(datetime.now()) , repository=proj_instance, event_id=event.id, version=obj["version"])
                 relay_manager.close_connections()
+
+                # Update DB
+                event_obj.update(date_updated=utc.localize(datetime.now()) , repository=proj_instance, event_id=event.id, version=obj["version"])
+                check_db = note_event.objects.filter(repository=obj["repository_id"])
+                print(f"New Nostr Event ID: {check_db[0].event_id}")
+                print(f"Published on: {check_db[0].date_updated}")
+                print(f"Version: {check_db[0].version}")
         else:
             # Set up default baseline DB entry for projects without a previous event
             event_obj.create(date_updated=utc.localize(datetime.now()),repository=proj_instance, event_id="baseline", version="baseline")
