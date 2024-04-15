@@ -10,8 +10,9 @@ utc=pytz.UTC
 # Get env variables
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 POSTR = os.getenv('POSTR')
+PUBLISH = os.getenv('PUBLISH')
 POSTR_RELAYS = []
-for i in range(1, 1):
+for i in range(1, 11):
     POSTR_RELAYS.append(os.getenv(f'POSTR_RELAY{i}'))
 
 # API call variables
@@ -33,7 +34,7 @@ def index(request):
     """Summary view. This fetches the latest release information about the projects."""
 
     # First kick off the Notes thread
-    t = threading.Thread(target=note_handler, args=(POSTR, POSTR_RELAYS))
+    t = threading.Thread(target=note_handler, args=(POSTR, POSTR_RELAYS, PUBLISH))
     t.setDaemon(True)
     t.start()
 
