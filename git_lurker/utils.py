@@ -298,6 +298,8 @@ def note_handler(POSTR, POSTR_RELAYS):
             event_date = event_obj[0].date_updated.strftime("%Y-%m-%d")
             event_version = event_obj[0].version
             # If the reases date is after the event date OR the event version is the same as the release then skip
+            print(f"Release Date: {release_date} Event Date: {event_date} Event Version: {event_version} Release Version: {obj['version']}")
+            print(f"{event_obj.values()}")
             if release_date <= event_date or event_version == obj["version"]:
                 continue
             else:
@@ -306,25 +308,27 @@ def note_handler(POSTR, POSTR_RELAYS):
                 time.sleep(1.25)
 
                 # Create content
-                note_content = f"""
-                GitLurker spotted a new release for the following GitHub Project:
+                note_content = \
+f"""
+GitLurker spotted a new release for the following GitHub Project:
 
-                - Repository   : {proj_instance.owner}/{proj_instance.repository}
-                - Version      : {obj["version"]}
-                - Published on : {obj["latest_release"]} UTC
-                - Published by : {obj["publisher"]}
-                
-                For more details, and the release notes, check out: https://github.com/{proj_instance.owner}/{proj_instance.repository}/releases/tag/{obj["version"]}
+- Repository   : {proj_instance.owner}/{proj_instance.repository}
+- Version      : {obj["version"]}
+- Published on : {obj["latest_release"]} UTC
+- Published by : {obj["publisher"]}
 
-                If you want to discover more freedom tech projects, and see who is shipping, check out https://gitlurker.info 
-                """
+For more details, and the release notes, check out: https://github.com/{proj_instance.owner}/{proj_instance.repository}/releases/tag/{obj["version"]}
+
+If you want to discover more freedom tech projects, and see who is shipping, check out https://gitlurker.info 
+"""
 
                 # Create and sign event
                 event = Event(public_key=postr_key.public_key.hex(), content=note_content)
+
                 postr_key.sign_event(event)
-                print(event.signature)
+                
                 # Publish event and save to DB
-                relay_manager.publish_event(event)
+                # relay_manager.publish_event(event)
                 time.sleep(1)
                 event_obj.update(date_updated=utc.localize(datetime.now()) , repository=proj_instance, event_id=event.id, version=obj["version"])
                 relay_manager.close_connections()
