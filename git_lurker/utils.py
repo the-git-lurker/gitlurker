@@ -331,7 +331,8 @@ If you want to discover more freedom tech projects, and see who is shipping, che
                 
                 # Publish event to relays
                 if PUBLISH:
-                    relay_manager.publish_event(event)
+                    pass
+                    #relay_manager.publish_event(event)
                 else:
                     print("Skipping publish")
                 time.sleep(1)
