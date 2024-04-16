@@ -326,7 +326,6 @@ If you want to discover more freedom tech projects, and see who is shipping, che
 
                 # Create and sign event
                 event = Event(public_key=postr_key.public_key.hex(), content=note_content)
-
                 postr_key.sign_event(event)
 
                 # Update DB
