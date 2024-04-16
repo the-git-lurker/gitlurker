@@ -326,17 +326,7 @@ If you want to discover more freedom tech projects, and see who is shipping, che
 
                 # Create and sign event
                 event = Event(public_key=postr_key.public_key.hex(), content=note_content)
-
                 postr_key.sign_event(event)
-                
-                # Publish event to relays
-                if PUBLISH:
-                    pass
-                    #relay_manager.publish_event(event)
-                else:
-                    print("Skipping publish")
-                time.sleep(1)
-                relay_manager.close_connections()
 
                 # Update DB
                 event_obj.update(date_updated=utc.localize(datetime.now()) , repository=proj_instance, event_id=event.id, version=obj["version"])
@@ -345,6 +335,21 @@ If you want to discover more freedom tech projects, and see who is shipping, che
                 print(f"Updated Nostr Event:")
                 print(f"\t-Release Date : {release_date} Event Date : {check_db[0].date_updated.strftime('%Y-%m-%d')}")
                 print(f"\t-Release Version : {obj['version']} Event Version : {check_db[0].version}")
+                
+                # Publish event to relays
+                print(f"Publish: {PUBLISH}, testing: {isinstance(PUBLISH, bool)}")
+                if PUBLISH == True:
+                    # try:
+                    #     relay_manager.publish_event(event)
+                    #     print("Publishing to relays")
+                    # except:
+                    #     print("Publishing to relays failed")
+                    print("Test Publish")
+                else:
+                    print("Skipping publish")
+                time.sleep(1)
+                relay_manager.close_connections()
+
         else:
             # Set up default baseline DB entry for projects without a previous event
             event_obj.create(date_updated=utc.localize(datetime.now()),repository=proj_instance, event_id="baseline", version="baseline")

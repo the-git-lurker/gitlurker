@@ -10,7 +10,7 @@ utc=pytz.UTC
 # Get env variables
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 POSTR = os.getenv('POSTR')
-PUBLISH = os.getenv('PUBLISH')
+PUBLISH = bool(os.getenv('PUBLISH'))
 POSTR_RELAYS = []
 for i in range(1, 11):
     POSTR_RELAYS.append(os.getenv(f'POSTR_RELAY{i}'))
