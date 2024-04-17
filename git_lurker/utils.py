@@ -314,10 +314,10 @@ def note_handler(POSTR: str, POSTR_RELAYS: list, PUBLISH: bool):
 f"""
 GitLurker spotted a new release for the following GitHub Project:
 
-- Repository   : {proj_instance.owner}/{proj_instance.repository}
-- Version      : {obj["version"]}
-- Published on : {obj["latest_release"]} UTC
-- Published by : {obj["publisher"]}
+- Repository: {proj_instance.owner}/{proj_instance.repository}
+- Version: {obj["version"]}
+- Published on: {obj["latest_release"]} UTC
+- Published by: {obj["publisher"]}
 
 For more details, and the release notes, check out: https://github.com/{proj_instance.owner}/{proj_instance.repository}/releases/tag/{obj["version"]}
 

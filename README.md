@@ -31,9 +31,16 @@ When a user navigates to one of these separate tabs they will see the following 
 
 ---
 ### Nostr Integration:
-As well as being able to visit this site to get information about specific projects there is a plan to also produce Nostr events for new releases and share this information automatically. This will allow you to follow the project on NOSTR and see these updates appear directly in your feed. 
 
-This function is currently in testing and will be rolled out in the coming weeks.
+Follow: [npub1cy80mfgpy2h0zs5kzze978qqnc8mlrlmeu70ldsvgkywk3vwlz5qlv3sfd](https://primal.net/p/npub1cy80mfgpy2h0zs5kzze978qqnc8mlrlmeu70ldsvgkywk3vwlz5qlv3sfd)
+
+The website now sends Nostr events for new releases automatically (after some spam teething issues thanks my inexpereince building Nostr integrated stuff). 
+
+By following the project you'll get updates on the GitHub projects we list directly in your feed. 
+
+For the second stage of this process I also hope to add some information to the release pages so that we can see any replies to these automated posts. Just as a nice way to show what people are saying about the new release.
+
+Watch this space, 2 weeks, soon...<sup>TM</sup>
 
 ---
 
