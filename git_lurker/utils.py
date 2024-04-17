@@ -337,14 +337,12 @@ If you want to discover more freedom tech projects, and see who is shipping, che
                 print(f"\t-Release Version : {obj['version']} Event Version : {check_db[0].version}")
                 
                 # Publish event to relays
-                print(f"Publish: {PUBLISH}, testing: {isinstance(PUBLISH, bool)}")
-                if PUBLISH == True:
-                    # try:
-                    #     relay_manager.publish_event(event)
-                    #     print("Publishing to relays")
-                    # except:
-                    #     print("Publishing to relays failed")
-                    print("Test Publish")
+                if PUBLISH == 1:
+                    try:
+                        relay_manager.publish_event(event)
+                        print("Publishing to relays")
+                    except:
+                        print("Publishing to relays failed")
                 else:
                     print("Skipping publish")
                 time.sleep(1)

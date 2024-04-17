@@ -7,10 +7,10 @@ from .models import project, release, repo_list, team, repo_detail, contrib
 # Time Zone localization to UTC
 utc=pytz.UTC
 
-# Get env variables
+# Get/set env variables
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 POSTR = os.getenv('POSTR')
-PUBLISH = bool(os.getenv('PUBLISH'))
+PUBLISH = 1
 POSTR_RELAYS = []
 for i in range(1, 11):
     POSTR_RELAYS.append(os.getenv(f'POSTR_RELAY{i}'))
