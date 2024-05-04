@@ -299,7 +299,9 @@ def note_handler(POSTR: str, POSTR_RELAYS: list, PUBLISH: bool):
             event_date = event_obj[0].date_updated.strftime("%Y-%m-%d")
             event_version = event_obj[0].version
             # If the release date after  the event date OR the event version is different then post to Nostr
-            if release_date > event_date or event_version != obj["version"]:
+            if release_date <= event_date or event_version == obj["version"]:
+                continue
+            else:
                 # print(f"\nPreparing Nostr Event:")
                 # print(f"\t-Release Date : {release_date} Event Date : {event_date}")
                 # print(f"\t-Release Version : {obj['version']} Event Version : {event_version}")
