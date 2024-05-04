@@ -338,7 +338,7 @@ If you want to discover more freedom tech projects, and see who is shipping, che
                 
                 # Publish event to relays
                 if PUBLISH == 1:
-                    relay_manager.publish_event(event)
+                    # relay_manager.publish_event(event)
                     print("Publishing to relays")
                 else:
                     print("Skipping publish")
