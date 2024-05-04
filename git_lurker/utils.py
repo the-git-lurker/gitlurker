@@ -298,7 +298,7 @@ def note_handler(POSTR: str, POSTR_RELAYS: list, PUBLISH: bool):
             release_date = obj["latest_release"][:10]
             event_date = event_obj[0].date_updated.strftime("%Y-%m-%d")
             event_version = event_obj[0].version
-            # If the release date after  the event date OR the event version is different then post to Nostr
+            # If the release date after the event date OR the event version is different then post to Nostr
             if release_date <= event_date or event_version == obj["version"]:
                 continue
             else:
@@ -338,7 +338,7 @@ If you want to discover more freedom tech projects, and see who is shipping, che
                 
                 # Publish event to relays
                 if PUBLISH == 1:
-                    # relay_manager.publish_event(event)
+                    relay_manager.publish_event(event)
                     print("Publishing to relays")
                 else:
                     print("Skipping publish")
