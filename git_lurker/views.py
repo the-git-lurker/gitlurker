@@ -48,11 +48,14 @@ def index(request):
         if not release_data or release_data[0]["date_updated"] <= utc.localize(datetime.now()) - timedelta(hours=3):
             endpoint1 = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
             release_data_api = get_release_info(endpoint1, verify_ssl, headers, rep_id)
-            version = release_data_api["version"]
-            publisher = release_data_api["publisher"]
-            latest_release_api = release_data_api["latest_release"]
-            latest_release = latest_release_api[:10] + " " + latest_release_api[11:16]
-            notes = release_data_api["notes"]
+            try:
+                version = release_data_api["version"]
+                publisher = release_data_api["publisher"]
+                latest_release_api = release_data_api["latest_release"]
+                latest_release = latest_release_api[:10] + " " + latest_release_api[11:16]
+                notes = release_data_api["notes"]
+            except:
+                print(f"Error with {owner}/{repo}")
         else:
             version = release_data[0]["version"]
             publisher = release_data[0]["publisher"]
