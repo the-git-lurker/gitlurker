@@ -27,9 +27,9 @@ urlpatterns = [
     # Individual Project Page
     path("<slug:owner>/project", views.project_view, name="project"),
     # Individual release Page
-    path("<slug:owner>/<slug:repo>/latest", views.release_view, name="release"),
+    path("<slug:owner>/<path:repo>/latest", views.release_view, name="release"),
     # Individual Repo Page
-    path("<slug:owner>/<slug:repo>/repo", views.repository_view, name="repository"),
+    path("<slug:owner>/<path:repo>/repo", views.repository_view, name="repository"),
     # Support Page
     path("support/", views.support_view, name="support"),
 ]
