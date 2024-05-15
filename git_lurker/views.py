@@ -55,7 +55,7 @@ def index(request):
                 latest_release = latest_release_api[:10] + " " + latest_release_api[11:16]
                 notes = release_data_api["notes"]
             except:
-                print(f"Error with {owner}/{repo}")
+                print(f"Error with {owner}/{repo} API Call.")
         else:
             version = release_data[0]["version"]
             publisher = release_data[0]["publisher"]
