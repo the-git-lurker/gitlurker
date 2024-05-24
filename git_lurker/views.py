@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect
 from .utils import get_release_info, get_members, get_repo_info, get_contributors, get_repo_summary, note_handler
 from datetime import date, datetime, timedelta
-import pytz, os, threading
+import pytz, os, threading, json
 from .models import project, release, repo_list, team, repo_detail, contrib
+from django.http import JsonResponse
+from django.views.decorators.http import require_GET
 
 # Time Zone localization to UTC
 utc=pytz.UTC
@@ -24,10 +26,19 @@ headers = {
             "Authorization" : f"Token {AUTH_TOKEN}"
         }
 
-
 # Handle any pages that are unexpected
 def page_not_found_view(request, exception):
     return render(request, 'git_lurker/404.html', status=404)
+
+# Handle well-known requests
+@require_GET
+def well_known_nostr(request):
+    # Create Json response from the nostr.json file file in the .well-known folder
+    with open('git_lurker/fixtures/.well-known/nostr.json') as f:
+        data = json.load(f)
+       
+    return JsonResponse(data)
+    
 
 # Home view
 def index(request):

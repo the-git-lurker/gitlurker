@@ -1,0 +1,10 @@
+{
+    "names": {
+        "Lurkey": "c10efda50122aef1429610b25f1c009e0fbf8ffbcf3cffb60c4588eb458ef8a8",
+        "Rydal": "13a665157257e79d9dcc960deeb367fd79383be2d0babb3d861679a5701d463b"
+    },
+    "relays" : {
+        "c10efda50122aef1429610b25f1c009e0fbf8ffbcf3cffb60c4588eb458ef8a8": ["wss://relay.damus.io", "wss://relay.primal.net"],
+        "13a665157257e79d9dcc960deeb367fd79383be2d0babb3d861679a5701d463b": ["wss://relay.damus.io", "wss://relay.primal.net"]
+    }
+}

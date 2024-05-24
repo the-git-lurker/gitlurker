@@ -32,6 +32,8 @@ urlpatterns = [
     path("<slug:owner>/<path:repo>/repo", views.repository_view, name="repository"),
     # Support Page
     path("support/", views.support_view, name="support"),
+    # Handle well-known nostr
+    path('.well-known/nostr.json', views.well_known_nostr, name='well_known_nostr'),
 ]
 
 handler404 = "git_lurker.views.page_not_found_view"
