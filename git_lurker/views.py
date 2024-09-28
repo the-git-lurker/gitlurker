@@ -14,7 +14,7 @@ AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 POSTR = os.getenv('POSTR')
 PUBLISH = 1
 POSTR_RELAYS = []
-for i in range(1, 7):
+for i in range(1, 4):
     POSTR_RELAYS.append(os.getenv(f'POSTR_RELAY{i}'))
 
 # API call variables
